@@ -7,7 +7,7 @@ LATE_THRESHOLD = 5
 DOWNTIME = 5
 
 # max runtime of the auto-zoom program (in hours)
-MAX_TIME = 16
+MAX_TIME = 24
 
 def decode_link(link):
 	#extract meeting info from zoom url
