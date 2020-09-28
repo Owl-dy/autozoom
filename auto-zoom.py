@@ -1,7 +1,7 @@
 import csv, os, time, datetime
 
 #how many minutes can be late for
-LATE_THRESHOLD = 2
+LATE_THRESHOLD = 5
 
 # how often to check for meeting time (in minutes)
 DOWNTIME = 5
