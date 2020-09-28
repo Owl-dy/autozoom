@@ -1,3 +1,3 @@
 ﻿zoom-link,"start time (in military xx:xx format, and earliest on top, and in order pls)","end time (in military, feature to be added)"
-https://oracle.zoom.us/j/<sample_conference_code>?pwd=<sample_password>,11:30,12:30
-https://oracle.zoom.us/j/02200006142?pwd=<sample_password>,15:45,16:30
+https://zoom.us/j/<sample_conference_code>?pwd=<sample_password>,11:30,12:30
+https://zoom.us/j/02200006142?pwd=aUt0zOOm_iS_@awsome,15:45,16:30
