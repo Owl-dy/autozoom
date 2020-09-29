@@ -82,9 +82,7 @@ while len(meeting_list) != 0:
 	if meeting_remaining_time > 0:	
 		print(f'currently is {datetime.datetime.now()}, in session, and the meeting ends at {meeting_list[0].end_time}')
 		time.sleep(meeting_remaining_time)
-	if dmeeting_remaining_time > 0:	
-		print(f'currently is {datetime.datetime.now()}, in session, and the meeting ends at {meeting_list[0].end_time}')
-		time.sleep(meeting_remaining_time)
+
 
 
 	else:
