@@ -1,13 +1,10 @@
 import csv, os, time, datetime
 
-#how many minutes can be late for
-LATE_THRESHOLD = 5
-
-# how often to check for meeting time (in minutes)
-DOWNTIME = 5
-
 # max runtime of the auto-zoom program (in hours)
 MAX_TIME = 24
+
+# max time allowed to be late for a meeting (in mins)
+LATE_THREHOLD = 15
 
 def decode_link(link):
 	#extract meeting info from zoom url
@@ -62,27 +59,38 @@ with open('schedule.csv') as csv_file:
 
 start_time = time.time()
 
-while time.time() - start_time < MAX_TIME * 60 * 60:
-	#if the program run time is less than 8 hours, continue to check for meetings
+while len(meeting_list) != 0:
 
-	time_since_meeting_started = (datetime.datetime.now() - meeting_list[0].start_time).total_seconds() 
-
+	#if the current time is after the ending time, exiting zoom and popping the meeting of the meeting list	
 	if datetime.datetime.now() > meeting_list[0].end_time:
-		#if the current time is the ending time, quitting the meeting
-		print('exiting meeting')
+		print(f'exiting meeting that ends at {meeting_list[0].end_time}')
 		os.system('killall zoom.us')
-		meeting_list.pop(0)		
+		time.sleep(10)
+		meeting_list.pop(0)
 
-	elif time_since_meeting_started < LATE_THRESHOLD * 60 and time_since_meeting_started > 0 :
-		#if the current time is the meeting time and not deemed late, join the meeting
-		print('joining')
+     #if the first meeting on the list is not yet started, wait till then and join
+	time_to_next_meeting = (meeting_list[0].start_time - datetime.datetime.now()).total_seconds() 
+	if time_to_next_meeting > 0 :
+		print(f'currently is {datetime.datetime.now()}, and the next meeting is in {time_to_next_meeting/60} mins, see you then')
+		time.sleep(time_to_next_meeting)
 		meeting_list[0].join()
-		#stay on for at least 10mins
-		time.sleep(600)
+		time.sleep(10)   
 
-	else:	
-		#wait to check in 1 min
-		print(f'currently is {datetime.datetime.now()}, and the next meeting is {meeting_list[0].start_time}')
-		time.sleep(DOWNTIME * 60)
+
+    #if the current meeting is not yet over, sleep until the meeting ends
+    meeting_remaining_time = (meeting_list[0].end_time - datetime.datetime.now()).total_seconds()
+	if dmeeting_remaining_time > 0:	
+		print(f'currently is {datetime.datetime.now()}, in session, and the meeting ends at {meeting_list[0].end_time}')
+		time.sleep(meeting_remaining_time)
+
+
+	else:
+		print(f'there are {len(meeting_list)} more meetings to be attended')
+
+
+
+
+
+
 
 
