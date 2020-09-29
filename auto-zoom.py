@@ -77,8 +77,11 @@ while len(meeting_list) != 0:
 		time.sleep(10)   
 
 
-    #if the current meeting is not yet over, sleep until the meeting ends
-    meeting_remaining_time = (meeting_list[0].end_time - datetime.datetime.now()).total_seconds()
+ 	#if the current meeting is not yet over, sleep until the meeting ends
+	meeting_remaining_time = (meeting_list[0].end_time - datetime.datetime.now()).total_seconds()
+	if meeting_remaining_time > 0:	
+		print(f'currently is {datetime.datetime.now()}, in session, and the meeting ends at {meeting_list[0].end_time}')
+		time.sleep(meeting_remaining_time)
 	if dmeeting_remaining_time > 0:	
 		print(f'currently is {datetime.datetime.now()}, in session, and the meeting ends at {meeting_list[0].end_time}')
 		time.sleep(meeting_remaining_time)
