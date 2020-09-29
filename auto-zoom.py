@@ -67,6 +67,7 @@ while len(meeting_list) != 0:
 		os.system('killall zoom.us')
 		time.sleep(10)
 		meeting_list.pop(0)
+		print(f'there are {len(meeting_list)} more meetings to be attended')
 
      #if the first meeting on the list is not yet started, wait till then and join
 	time_to_next_meeting = (meeting_list[0].start_time - datetime.datetime.now()).total_seconds() 
