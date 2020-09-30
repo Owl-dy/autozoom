@@ -1,10 +1,5 @@
 import csv, os, time, datetime
 
-# max runtime of the auto-zoom program (in hours)
-MAX_TIME = 24
-
-# max time allowed to be late for a meeting (in mins)
-LATE_THREHOLD = 15
 
 def decode_link(link):
 	#extract meeting info from zoom url
