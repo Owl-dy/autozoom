@@ -1,5 +1,6 @@
 import csv, os, time, datetime
 
+LATE_THRESHOLD = 2 #mins
 
 def decode_link(link):
 	#extract meeting info from zoom url
@@ -53,22 +54,20 @@ with open('schedule.csv') as csv_file:
 
 
 start_time = time.time()
+loop_count = 0
 
-while len(meeting_list) != 0:
+while len(meeting_list) > 0:
 
-	#if the current time is after the ending time, exiting zoom and popping the meeting of the meeting list	
-	if datetime.datetime.now() > meeting_list[0].end_time:
-		print(f'exiting meeting that ends at {meeting_list[0].end_time}')
-		os.system('killall zoom.us')
-		time.sleep(10)
-		meeting_list.pop(0)
-		print(f'there are {len(meeting_list)} more meetings to be attended')
+	loop_count += 1
+	print(loop_count)
 
-     #if the first meeting on the list is not yet started, wait till then and join
-	time_to_next_meeting = (meeting_list[0].start_time - datetime.datetime.now()).total_seconds() 
-	if time_to_next_meeting > 0 :
-		print(f'currently is {datetime.datetime.now()}, and the next meeting is in {time_to_next_meeting/60} mins, see you then')
-		time.sleep(time_to_next_meeting)
+     #if the first meeting on the list (aka, the current meeting) is not yet started, wait 
+	if datetime.datetime.now() < meeting_list[0].start_time :
+		while datetime.datetime.now() < meeting_list[0].start_time:
+			#checking in interval until the meeting.start_time has past
+			print(f'currently is {datetime.datetime.now()}, and the next meeting is in {(meeting_list[0].start_time - datetime.datetime.now()).total_seconds()/60} mins')
+			time.sleep(LATE_THRESHOLD * 60)
+		print(f'currently is {datetime.datetime.now()}, joining the meeting that starts at {meeting_list[0].start_time}......')
 		meeting_list[0].join()
 		time.sleep(10)   
 
@@ -80,11 +79,18 @@ while len(meeting_list) != 0:
 		time.sleep(meeting_remaining_time)
 
 
-
-	else:
+	#if the current time is after the ending time of the current meeting, exiting zoom and popping the meeting of the meeting list	
+	if datetime.datetime.now() > meeting_list[0].end_time:
+		print(f'exiting meeting that ends at {meeting_list[0].end_time}')
+		os.system('killall zoom.us')
+		time.sleep(10)
+		meeting_list.pop(0)
 		print(f'there are {len(meeting_list)} more meetings to be attended')
 
+	else:
+		print('something wrong')
 
+print('program finished... see you next time')
 
 
 
