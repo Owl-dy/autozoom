@@ -1,4 +1,4 @@
-import csv, os, time, datetime
+import csv, os, time, datetime, platform
 
 LATE_THRESHOLD = 2 #mins
 
@@ -26,9 +26,17 @@ class Meeting():
 		self.password, self.conference_code = decode_link(link)
 
 	def join(self):
-	#using terminal to open converted zoom link
-		command = f'open "zoommtg://zoom.us/join?confno={self.conference_code}?&pwd={self.password}"'
+		if platform.system() == 'Windows':
+			command = f'start zoommtg://zoom.us/join?confno={self.conference_code}?"&"pwd={self.password}'
+		else: 
+			command = f'open "zoommtg://zoom.us/join?confno={self.conference_code}?&pwd={self.password}"'
 		os.system(command)
+
+	def quit(self):
+		if platform.system() == 'Windows':
+			os.system('taskkill /f /im Zoom.exe')
+		else: 
+			os.system('killall zoom.us')
 
 
 
@@ -82,7 +90,7 @@ while len(meeting_list) > 0:
 	#if the current time is after the ending time of the current meeting, exiting zoom and popping the meeting of the meeting list	
 	if datetime.datetime.now() > meeting_list[0].end_time:
 		print(f'exiting meeting that ends at {meeting_list[0].end_time}')
-		os.system('killall zoom.us')
+		meeting_list[0].quit()
 		time.sleep(10)
 		meeting_list.pop(0)
 		print(f'there are {len(meeting_list)} more meetings to be attended')
