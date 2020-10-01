@@ -14,9 +14,9 @@ There is no pip installation or dependency hell at all, so that it is easy to us
 - Have [Python3](https://www.python.org/downloads/) installed. Make sure to pick the right version for you OS.
 - Have [Zoom](https://zoom.us/download) client installed.
 ### How to start
-1. `<cd>` into directory 
-2. Edit the `<schedule.csv>` file
-3.  start the program `<python auto-zoom.py>` *(trick: if using non-Windows OS, do `<screen python auto-zoom.py>` instead and `CTR+A then D` to run in the background, or else you need to keep your terminal open)*
+1. `cd` into directory 
+2. Edit the `schedule.csv` file
+3.  start the program `python auto-zoom.py` *(trick: if using non-Windows OS, do `screen python auto-zoom.py` instead and `CTR+A then D` to run in the background, or else you need to keep your terminal open)*
 
 ### Detailed instructions for first-timers
 1. Have the prerequisites done
@@ -25,18 +25,18 @@ There is no pip installation or dependency hell at all, so that it is easy to us
 4. then.....
 #### If you are using a Mac :apple:
 1. In Applications panel, find and open the **Terminal** app
-2. In the **Terminal** type `<cd your_path_to_the_folder>` to cd into directory 
+2. In the **Terminal** type `cd your_path_to_the_folder` to cd into directory 
 - ( if you don't know how to find the path, click the gear button :gear: on the top, and select *Copy "autozoom" as Pathname. )
-- have something like`<cd /Users/owl-dy/autozoom>` in the **Terminal**, then hit *Enter*
-3. Edit the `<schedule.csv>` file
-4. In the **Terminal** start the program by typing `<python auto-zoom.py>`
+- have something like`cd /Users/owl-dy/autozoom` in the **Terminal**, then hit *Enter*
+3. Edit the `schedule.csv` file
+4. In the **Terminal** start the program by typing `python auto-zoom.py`
 #### If you are using a PC :computer:
-1. In **Start** menu search of `<cmd>` and open it
-2. In the **CMD** type `<cd your_path_to_the_folder>` to cd into directory 
+1. In **Start** menu search of `cmd` and open it
+2. In the **CMD** type `cd your_path_to_the_folder` to cd into directory 
 - ( if you don't know how to find the path, in the folder, right-click > Properties > Locations is your path )
-- have something like`<cd /Users/owl-dy/autozoom>` in the **CMD**, then hit *Enter*
-3. Edit the `<schedule.csv>` file
-4. In the **CMD** start the program by typing `<python auto-zoom.py>`
+- have something like`cd /Users/owl-dy/autozoom` in the **CMD**, then hit *Enter*
+3. Edit the `schedule.csv` file
+4. In the **CMD** start the program by typing `python auto-zoom.py`
 
 
 
