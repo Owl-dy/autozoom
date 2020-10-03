@@ -1,2 +1,2 @@
-﻿zoom-link,"start time (in military xx:xx format, and earliest on top, and in order pls)","end time (in military, feature to be added)"
-https://zoom.us/j/<conference_code>pwd=<password>,15:45,16:30
+﻿zoom-links,"date (in mm/dd/y format, leave it blank for today)","meeting start time (in military xx:xx format, the earliest on top and in order pls)","meeting end time (in military xx:xx format, the earliest on top and in order pls)"
+https://zoom.us/j/<conference_code>?pwd=<password>,,15:45,16:30

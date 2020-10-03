@@ -8,21 +8,28 @@ def decode_link(link):
 	conference_code = link.split('/j/')[1].split('?pwd=')[0]
 	return password, conference_code
 
-def convert_time(string):
+def convert_time(string_date, string_time):
 	#converting HH:MM string to a datetime object
-	hour = string.split(":")[0]
-	minute = string.split(":")[1]
+	hour = string_time.split(":")[0]
+	minute = string_time.split(":")[1]
+
+	#checking for default date
+	if string_date == '':
+		string_date = 'today'
+
 	# mm/dd/y hour:minute
-	# to be changed if incorporating multiple days of meetings
-	datetime_str = f'{datetime.date.today().strftime("%m/%d/%y")} {hour}:{minute}:00'
+	if string_date == 'today':
+		datetime_str = f'{datetime.date.today().strftime("%m/%d/%y")} {hour}:{minute}:00'
+	else:
+		datetime_str = f'{string_date} {hour}:{minute}:00'
 	datetime_object = datetime.datetime.strptime(datetime_str, '%m/%d/%y %H:%M:%S')
 	return datetime_object
 
 class Meeting():
 	#a meeting is consisted of the meeting link and the meeting time
-	def __init__(self, link, start_time, end_time):
-		self.start_time = convert_time(start_time)
-		self.end_time = convert_time(end_time)
+	def __init__(self, link, date, start_time, end_time):
+		self.start_time = convert_time(date, start_time)
+		self.end_time = convert_time(date, end_time)
 		self.password, self.conference_code = decode_link(link)
 
 	def join(self):
@@ -53,7 +60,7 @@ with open('schedule.csv') as csv_file:
             line_count += 1
         else:
         	line_count += 1
-        	meeting = Meeting(row[0],row[1],row[2])
+        	meeting = Meeting(row[0],row[1],row[2],row[3])
         	meeting_list.append(meeting)
             
     print(f'Processed {line_count - 1} meetings.')
