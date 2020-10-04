@@ -45,8 +45,9 @@ There is no pip installation or dependency hell at all, so that it is easy to us
 3. Edit the `schedule.csv` file
 4. In the **CMD** start the program by typing `python auto-zoom.py`
 
-### autozoom-pro
-check out `pro/` directory for more functionalities
+### Autozoom-pro
+Check out [/pro](https://github.com/Owl-dy/autozoom/tree/master/pro) directory for more functionalities.
+These functionalities are still under constant updates/improvements. Starred this repo to follow more updates.
 
 ## Other things about this project
 ### Inspiration & acknowledgement
