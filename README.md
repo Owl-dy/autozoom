@@ -15,8 +15,15 @@ There is no pip installation or dependency hell at all, so that it is easy to us
 - Have [Zoom](https://zoom.us/download) client installed.
 ### How to start
 1. `cd` into directory 
-2. Edit the `schedule.csv` file
-3.  start the program `python auto-zoom.py` *(trick: if using non-Windows OS, do `screen python auto-zoom.py` instead and `CTR+A then D` to run in the background, or else you need to keep your terminal open)*
+2. Edit the `schedule.csv` file formatted like the following:
+
+| zoom-links |	date (blank for today) | meeting start time | meeting end time |
+|--------------------------------------------------|--------|-----|-----|
+|https://zoom.us/j/<conference_code>?pwd=<password>|		|09:45|10:30|
+|https://zoom.us/j/<conference_code>?pwd=<password>|09/21/2020|12:45|13:30|
+|https://zoom.us/j/<conference_code>?pwd=<password>|MM/DD/YYYY|HH:MM|HH:MM|
+3. Be careful, the earliest meeting on top and in order. Make sure the formats are correct, and end time of each meeting is after the start time
+4.  start the program `python auto-zoom.py` *(trick: if using non-Windows OS, do `screen python auto-zoom.py` instead and `CTR+A then D` to run in the background, or else you need to keep your terminal open)*
 
 ### Detailed instructions for first-timers
 1. Have the prerequisites done
@@ -38,8 +45,8 @@ There is no pip installation or dependency hell at all, so that it is easy to us
 3. Edit the `schedule.csv` file
 4. In the **CMD** start the program by typing `python auto-zoom.py`
 
-
-
+### autozoom-pro
+check out `pro/` directory for more functionalities
 
 ## Other things about this project
 ### Inspiration & acknowledgement
