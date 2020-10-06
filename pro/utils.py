@@ -54,9 +54,11 @@ class Windows():
 
 	def camera_action(self):
 		self.keyboard.press(Key.alt_l)
+		time.sleep(1)
 		self.keyboard.press('v')
 		time.sleep(1)
 		self.keyboard.release('v')
+		time.sleep(1)
 		self.keyboard.release(Key.alt_l)
 
 	def audio_action(self):
