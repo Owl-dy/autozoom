@@ -21,6 +21,7 @@ There are some Python packages and Zoom configurations required.
 - [OPTIONAL] Record an audio which will be played on all Zoom meetings and save it as "audio_only.wav" (make sure is .wav format) in the same directory 
 ### Installation
 Create a virtual environment and activate and pip install dependencies:
+
 if Mac:apple:
 ```
 cd autozoom/pro
