@@ -4,12 +4,11 @@ from utils import Meeting, Windows, Mac
 
 
 #consent to turn on camera and audio
-consent = input(' Would you like to turn on your camera and mic for the meetings? \n Please make sure virtual background is set up on Zoom \n Please make sure your audio file is named audio_only.wav in the same directory \n Do you consent? y/[N] \n')
+consent = input(' Would you like to turn on your camera or mic for the meetings? \n Please make sure virtual background is set up on Zoom \n Please make sure your audio file is named audio_only.wav in the same directory \n Do you consent? y/[N] \n')
 consent = True if consent.lower() == 'y' or consent.lower() == 'yes' else False 
 
 LATE_THRESHOLD = 2 #mins
 VIDEO_TIME = int(input('How long would you loop your video for (mins)?' )) #mins --- to loop the virtual background
-AUDIO_TIME = int(input('How long would you play your audio for (mins)?' )) #mins --- to keep mic open
 
 ##processing the csv and create a meeting list
 meeting_list = []
@@ -22,14 +21,14 @@ with open('schedule.csv') as csv_file:
             line_count += 1
         else:
         	line_count += 1
-        	meeting = Meeting(row[0],row[1],row[2],row[3])
+        	meeting = Meeting(row[0],row[1],row[2],row[3],row[4],row[5])
         	meeting_list.append(meeting)
             
     print(f'Processed {line_count - 1} meetings.')
 
 
 #checking for the system
-op = Windows if platform.system() == 'Windows' else Mac()
+op = Windows() if platform.system() == 'Windows' else Mac()
 
 
 
@@ -47,15 +46,18 @@ while len(meeting_list) > 0:
 		
 
 		if consent:
-			## opening up camera and playing sound
-			op.camera_action()#open camera
+			## opening up camera
+			if meeting_list[0].video: 
+				op.camera_action()#open camera
+			
 			time.sleep(2)
-			op.audio_action()#turn on audio
-			playsound('audio_only.wav')
-			time.sleep(AUDIO_TIME*60)#keep audio playing
-			## stopping audio and camera
-			op.audio_action()#stop audio
-			time.sleep((VIDEO_TIME - AUDIO_TIME)*60)#keep camera open 
+			## opening up audio
+			if meeting_list[0].audio:
+				op.audio_action()#turn on audio
+				playsound('audio_only.wav') #play the audio until finished
+				op.audio_action()#mute 
+			
+			time.sleep(VIDEO_TIME*60)#keep camera open 
 			op.camera_action()#off camera
 
 

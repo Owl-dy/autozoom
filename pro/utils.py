@@ -28,10 +28,14 @@ def convert_time(string_date, string_time):
 
 class Meeting():
 	#a meeting is consisted of the meeting link and the meeting time
-	def __init__(self, link, date, start_time, end_time):
+	def __init__(self, link, date, start_time, end_time, video, audio):
 		self.start_time = convert_time(date, start_time)
 		self.end_time = convert_time(date, end_time)
 		self.password, self.conference_code = decode_link(link)
+		video = video.strip()# getting rid of space issues
+		audio = audio.strip()
+		self.video = True if video.lower() == 'y' or video.lower() == 'yes' else False
+		self.audio = True if audio.lower() == 'y' or audio.lower() == 'yes' else False
 
 
 
@@ -56,7 +60,6 @@ class Windows():
 		self.keyboard.release(Key.alt_l)
 
 	def audio_action(self):
-		self.keyboard = Controller()
 		self.keyboard.press(Key.alt_l)
 		self.keyboard.press('a')
 		time.sleep(1)

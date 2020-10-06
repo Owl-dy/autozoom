@@ -19,9 +19,9 @@ There is no pip installation or dependency hell at all, so that it is easy to us
 
 | zoom-links |	date (blank for today) | meeting start time | meeting end time |
 |--------------------------------------------------|--------|-----|-----|
-|https://zoom.us/j/<conference_code>?pwd=<password>|		|09:45|10:30|
-|https://zoom.us/j/<conference_code>?pwd=<password>|09/21/2020|12:45|13:30|
-|https://zoom.us/j/<conference_code>?pwd=<password>|MM/DD/YYYY|HH:MM|HH:MM|
+|https://zoom.us/j/<conference_code>?pwd=<pa11word>|		|09:45|10:30|
+|https://zoom.us/j/<conference_code>?pwd=<pa22word>|09/21/2020|12:45|13:30|
+|https://zoom.us/j/<conference_code>?pwd=<pa33word>|MM/DD/YYYY|HH:MM|HH:MM|
 3. Be careful, the earliest meeting on top and in order. Make sure the formats are correct, and end time of each meeting is after the start time
 4.  start the program `python auto-zoom.py` *(trick: if using non-Windows OS, do `screen python auto-zoom.py` instead and `CTR+A then D` to run in the background, or else you need to keep your terminal open)*
 
@@ -56,4 +56,3 @@ These functionalities are still under constant updates/improvements. Starred thi
 ### Future stage (please join me!)
 - Want to be able to have a trigger word for Zoom's audio output, so whenever you are called on, autozoom can play a pre-recorded audio file to fake your presence
 - Want to redirect audio output to a NLP service, and play back pre-recorded audio based on the content of the input audio
-
