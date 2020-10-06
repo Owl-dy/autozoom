@@ -38,9 +38,10 @@ pip install -r requirements.txt
 ```
 ### How to start
 1. edit the `schedule.csv` file
+
 |zoom-links|	date (in mm/dd/y format, leave it blank for today)|	meeting start time | meeting end time|	video?| audio?|
-|----------|------------------------------------------------------|--------------------|-----------------|--------|-------|
-|https://oracle.zoom.us/j/6666434878?pwd=N0ZxWDZKWWEyWFMzVkZZeENyR2h0QT09|		|14:03|16:30|n|y|
+|------------------------------------|--|--------------------|-----------------|--------|-------|
+|https://zoom.us/j/123456789?pwd=xxxx|  |14:03      |16:30                     |n       |   y   |
 2. simply 
 ```
 python auto-zoom-pro.py
