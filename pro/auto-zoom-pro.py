@@ -8,7 +8,8 @@ consent = input(' Would you like to turn on your camera or mic for the meetings?
 consent = True if consent.lower() == 'y' or consent.lower() == 'yes' else False 
 
 LATE_THRESHOLD = 2 #mins
-VIDEO_TIME = int(input('How long would you loop your video for (mins)?' )) #mins --- to loop the virtual background
+if consent:
+	VIDEO_TIME = int(input('How long would you loop your video for (mins)?' )) #mins --- to loop the virtual background
 
 ##processing the csv and create a meeting list
 meeting_list = []
@@ -49,16 +50,23 @@ while len(meeting_list) > 0:
 			## opening up camera
 			if meeting_list[0].video: 
 				op.camera_action()#open camera
+				open_camera_time = time.time()
 			
 			time.sleep(2)
 			## opening up audio
 			if meeting_list[0].audio:
 				op.audio_action()#turn on audio
-				playsound('audio_only.wav') #play the audio until finished
-				op.audio_action()#mute 
+				try: 
+					playsound('audio_only.wav') #play the audio until finished
+					op.audio_action()#mute 
+				except:
+					print('no pre-set audio to play')
+
 			
-			time.sleep(VIDEO_TIME*60)#keep camera open 
-			op.camera_action()#off camera
+			if meeting_list[0].video:
+				remaining_camera_time = max(1, (VIDEO_TIME*60 - (time.time() - open_camera_time))
+				time.sleep(remaining_camera_time)#keep camera open 
+				op.camera_action()#off camera
 
 
 
