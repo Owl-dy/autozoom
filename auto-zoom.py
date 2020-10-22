@@ -21,6 +21,13 @@ def convert_time(string_date, string_time):
 	# mm/dd/y hour:minute
 	if string_date == 'today':
 		datetime_str = f'{datetime.date.today().strftime("%m/%d/%y")} {hour}:{minute}:00'
+	elif string_date in ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]:
+		curdate = datetime.date.today()
+
+		while curdate.strftime('%A') != string_date:
+			curdate = curdate + datetime.timedelta(day=1)
+		
+		datetime_str = f'{curdate.strftime("%m/%d/%y")} {hour}:{minute}:00'
 	else:
 		datetime_str = f'{string_date} {hour}:{minute}:00'
 	datetime_object = datetime.datetime.strptime(datetime_str, '%m/%d/%y %H:%M:%S')
