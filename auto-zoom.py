@@ -25,7 +25,7 @@ def convert_time(string_date, string_time):
 		curdate = datetime.date.today()
 
 		while curdate.strftime('%A') != string_date:
-			curdate = curdate + datetime.timedelta(day=1)
+			curdate = curdate + datetime.timedelta(days=1)
 		
 		datetime_str = f'{curdate.strftime("%m/%d/%y")} {hour}:{minute}:00'
 	else:
