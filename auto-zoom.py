@@ -6,7 +6,8 @@ def decode_link(link):
 	#extract meeting info from zoom url
 	password = link.split('pwd=')[1]
 	conference_code = link.split('/j/')[1].split('?pwd=')[0]
-	return password, conference_code
+	zoom_domain_name = link.split("//")[1].split("/j")[0]
+	return zoom_domain_name, password, conference_code
 
 def convert_time(string_date, string_time):
 	#converting HH:MM string to a datetime object
@@ -30,18 +31,22 @@ class Meeting():
 	def __init__(self, link, date, start_time, end_time):
 		self.start_time = convert_time(date, start_time)
 		self.end_time = convert_time(date, end_time)
-		self.password, self.conference_code = decode_link(link)
+		self.zoom_domain_name, self.password, self.conference_code = decode_link(link)
 
 	def join(self):
 		if platform.system() == 'Windows':
-			command = f'start zoommtg://zoom.us/join?confno={self.conference_code}?"&"pwd={self.password}'
+			command = f'start zoommtg://{self.zoom_domain_name}/join?confno={self.conference_code}?"&"pwd={self.password}'
+		elif platform.system() == 'Linux':
+			command = f'xdg-open "zoommtg://{self.zoom_domain_name}/join?confno={self.conference_code}?&pwd={self.password}"'
 		else: 
-			command = f'open "zoommtg://zoom.us/join?confno={self.conference_code}?&pwd={self.password}"'
+			command = f'open "zoommtg://{self.zoom_domain_name}/join?confno={self.conference_code}?&pwd={self.password}"'
 		os.system(command)
 
 	def quit(self):
 		if platform.system() == 'Windows':
 			os.system('taskkill /f /im Zoom.exe')
+		elif platform.system() == 'Linux':
+			os.system('killall zoom')
 		else: 
 			os.system('killall zoom.us')
 
