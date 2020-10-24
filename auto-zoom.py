@@ -1,11 +1,23 @@
 import csv, os, time, datetime, platform
 
-LATE_THRESHOLD = 2 #mins
+LATE_THRESHOLD = 0.5 #mins
 
 def decode_link(link):
 	#extract meeting info from zoom url
-	password = link.split('pwd=')[1]
-	conference_code = link.split('/j/')[1].split('?pwd=')[0]
+	try:
+		password = link.split('pwd=')[1]
+	except:
+		password = input(f"The password of {link} can not be detected. \nInput the password manually or press enter. \n")
+	
+	try:
+		conference_code = link.split('/j/')[1].split('?pwd=')[0]
+	except:
+		conference_code = input(f"The conference code of {link} CAN NOT be detected. \nInput the conference code manually or press enter to continue anyway.\n")
+		conference_code = "NOT FOUND" if conference_code == "" else conference_code.strip()
+		if conference_code == "NOT FOUND":
+			print(f"The conference code of {link} CAN NOT be detected \nWill try joining this meeting with the original link. \nPlease ensure your browser will open the link with Zoom Client automatically.")
+		else:
+			print(f"your conference code is {conference_code}")
 	return password, conference_code
 
 def convert_time(string_date, string_time):
@@ -31,12 +43,19 @@ class Meeting():
 		self.start_time = convert_time(date, start_time)
 		self.end_time = convert_time(date, end_time)
 		self.password, self.conference_code = decode_link(link)
+		self.link = link
 
 	def join(self):
 		if platform.system() == 'Windows':
-			command = f'start zoommtg://zoom.us/join?confno={self.conference_code}?"&"pwd={self.password}'
+			if self.conference_code == "NOT FOUND":
+				command = f'start {self.link}' #using the original link to join
+			else:
+				command = f'start zoommtg://zoom.us/join?confno={self.conference_code}?"&"pwd={self.password}'
 		else: 
-			command = f'open "zoommtg://zoom.us/join?confno={self.conference_code}?&pwd={self.password}"'
+			if self.conference_code == "NOT FOUND":
+				command = f'open {self.link}' #using the original link to join
+			else:
+				command = f'open "zoommtg://zoom.us/join?confno={self.conference_code}?&pwd={self.password}"'
 		os.system(command)
 
 	def quit(self):
@@ -51,8 +70,10 @@ class Meeting():
 
 ##processing the csv and create a meeting list
 meeting_list = []
+file_path = os.path.abspath(os.path.dirname(__file__))
+csv_path = os.path.join(file_path,'schedule.csv')
 
-with open('schedule.csv') as csv_file:
+with open(csv_path) as csv_file:
     csv_reader = csv.reader(csv_file, delimiter=',')
     line_count = 0
     for row in csv_reader:
@@ -77,7 +98,7 @@ while len(meeting_list) > 0:
 	print(loop_count)
 
      #if the first meeting on the list (aka, the current meeting) is not yet started, wait 
-	if datetime.datetime.now() < meeting_list[0].start_time :
+	if datetime.datetime.now() < meeting_list[0].start_time + datetime.timedelta(minutes = LATE_THRESHOLD) :
 		while datetime.datetime.now() < meeting_list[0].start_time:
 			#checking in interval until the meeting.start_time has past
 			print(f'currently is {datetime.datetime.now()}, and the next meeting is in {(meeting_list[0].start_time - datetime.datetime.now()).total_seconds()/60} mins')
