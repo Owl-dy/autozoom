@@ -1,11 +1,41 @@
 from pynput.keyboard import Key, Controller
 import datetime, os, time
 
+class bcolors:
+	#use for showing color in terminal
+    HEADER = '\033[95m'
+    OKBLUE = '\033[94m'
+    OKCYAN = '\033[96m'
+    OKGREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+    ENDC = '\033[0m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
 
 def decode_link(link):
-	#extract meeting info from zoom url
-	password = link.split('pwd=')[1]
-	conference_code = link.split('/j/')[1].split('?pwd=')[0]
+	# extract meeting info from zoom url
+
+	try:
+		password = link.split('pwd=')[1]
+	except:
+		password = input(
+			f"{bcolors.WARNING}The password of {link} can not be detected. \nInput the password manually or press enter. \n {bcolors.ENDC}")
+
+	try:
+		conference_code = link.split('/j/')[1].split('?pwd=')[0]
+	except:
+		conference_code = input(
+			f"{bcolors.WARNING}The conference code of {link} CAN NOT be detected. \nInput the conference code manually (without space) or press enter to continue anyway.  \n {bcolors.ENDC}")
+		conference_code = "NOT FOUND" if conference_code == "" else conference_code.strip().replace("-","")
+		if conference_code == "NOT FOUND":
+			print(
+				f"{bcolors.WARNING}The conference code of {link} CAN NOT be detected \nWill try joining this meeting with the original link. \nPlease ensure your browser will open the link with Zoom Client automatically.{bcolors.ENDC}")
+		else:
+			print(f"your conference code is {conference_code}")
+
+
 	return password, conference_code
 
 def convert_time(string_date, string_time):
@@ -36,6 +66,7 @@ class Meeting():
 		audio = audio.strip()
 		self.video = True if video.lower() == 'y' or video.lower() == 'yes' else False
 		self.audio = True if audio.lower() == 'y' or audio.lower() == 'yes' else False
+		self.link = link
 
 
 
@@ -46,8 +77,12 @@ class Windows():
 		return None
 
 	def join(self, meeting):
-		command = f'start zoommtg://zoom.us/join?confno={meeting.conference_code}?"&"pwd={meeting.password}'
+		if meeting.conference_code == "NOT FOUND":
+			command = f'start {meeting.link}'  # using the original link to join
+		else:
+			command = f'start zoommtg://zoom.us/join?confno={meeting.conference_code}?"&"pwd={meeting.password}'
 		os.system(command)
+
 
 	def quit(self):
 		os.system('taskkill /f /im Zoom.exe')
@@ -79,7 +114,10 @@ class Mac():
 		return None
 
 	def join(self, meeting):
-		command = f'open "zoommtg://zoom.us/join?confno={meeting.conference_code}?&pwd={meeting.password}"'
+		if meeting.conference_code == "NOT FOUND":
+			command = f'open {meeting.link}'  # using the original link to join
+		else:
+			command = f'open "zoommtg://zoom.us/join?confno={meeting.conference_code}?&pwd={meeting.password}"'
 		os.system(command)
 
 	def quit(self):
