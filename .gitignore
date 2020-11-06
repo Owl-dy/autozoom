@@ -3,3 +3,4 @@ testing/
 pro/venv
 pro/myenv
 pro/__pycache__/
+.idea

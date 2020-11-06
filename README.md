@@ -25,25 +25,24 @@ There is no pip installation or dependency hell at all, so that it is easy to us
 3. Be careful, the earliest meeting on top and in order. Make sure the formats are correct, and end time of each meeting is after the start time
 4.  start the program `python auto-zoom.py` *(trick: if using non-Windows OS, do `screen python auto-zoom.py` instead and `CTR+A then D` to run in the background, or else you need to keep your terminal open)*
 
-### Detailed instructions for first-timers
-1. Have the prerequisites done
-2. download the code from this page
-3. find the folder where you downloaded to and unzip the file. Remenber the path (directory) where the file is located
-4. then.....
+### Detailed instructions for non-technical users
+![Tutorial](tutorial.gif "Tutorial")
+1. Have the prerequisites done (Zoom Client set up like you normally would and download Python3 from the link above)
+2. Download the code from this page
+3. Extract / Unzip the file
+4. Edit the schedule.csv file 
+5. Then....
 #### If you are using a Mac :apple:
-1. In Applications panel, find and open the **Terminal** app
-2. In the **Terminal** type `cd your_path_to_the_folder` to cd into directory 
-- ( if you don't know how to find the path, click the gear button :gear: on the top, and select *Copy "autozoom" as Pathname. )
-- have something like`cd /Users/owl-dy/autozoom` in the **Terminal**, then hit *Enter*
-3. Edit the `schedule.csv` file
-4. In the **Terminal** start the program by typing `python auto-zoom.py`
+1. Follow the gif tutorial above
+2. Search for **Terminal** and open it
+3. In the **Terminal** type `python` then drag `auto-zoom.py` to the **Terminal**. You should have something like `python /Users/owl-dy/autozoom/auto-zoom.py`
+4. Confirm the meetings are processed and wait to auto-join the meetings, or close window to terminate the process
 #### If you are using a PC :computer:
-1. In **Start** menu search of `cmd` and open it
-2. In the **CMD** type `cd your_path_to_the_folder` to cd into directory 
-- ( if you don't know how to find the path, in the folder, right-click > Properties > Locations is your path )
-- have something like`cd /Users/owl-dy/autozoom` in the **CMD**, then hit *Enter*
-3. Edit the `schedule.csv` file
-4. In the **CMD** start the program by typing `python auto-zoom.py`
+1. You can follow the gif tutorial above except
+2. In **Start** menu search of `cmd` and open it
+3. In the **CMD** type `python` then drag `auto-zoom.py` to the **CMD**. You should have something like `python \Users\owl-dy\downloads\autozoom\auto-zoom.py`
+4. Confirm the meetings are processed and wait to auto-join the meetings, or close window to terminate the process
+
 
 ### Autozoom-pro
 Check out [/pro](https://github.com/Owl-dy/autozoom/tree/master/pro) directory for more functionalities.
