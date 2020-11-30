@@ -19,10 +19,10 @@ There is no pip installation or dependency hell at all, so that it is easy to us
 
 | zoom-links |	date (blank for today) | meeting start time | meeting end time |
 |--------------------------------------------------|--------|-----|-----|
-|https://zoom.us/j/<conference_code>?pwd=<pa11word>|		|09:45|10:30|
-|https://zoom.us/j/<conference_code>?pwd=<pa22word>|09/21/2020|13:45|14:30|
-|https://zoom.us/j/<conference_code>?pwd=<pa33word>|Monday|HH:MM|HH:MM|
-|https://zoom.us/j/<conference_code>?pwd=<pa33word>|MM/DD/YYYY|HH:MM|HH:MM|
+|https://zoom.us/j/<conference_code>?pwd=<pA11w0RD>|		|09:45|10:30|
+|https://zoom.us/j/<conference_code>?pwd=<pA22w0RD>|09/21/2020|13:45|14:30|
+|https://zoom.us/j/<conference_code>?pwd=<pA33w0RD>|Monday|HH:MM|HH:MM|
+|https://zoom.us/j/<conference_code>?pwd=<pA33w0RD>|MM/DD/YYYY|HH:MM|HH:MM|
 3. Be careful, the earliest meeting on top and in order. Make sure the formats are correct, and end time of each meeting is after the start time
 4.  start the program `python auto-zoom.py` *(trick: if using non-Windows OS, do `screen python auto-zoom.py` instead and `CTR+A then D` to run in the background, or else you need to keep your terminal open)*
 
@@ -36,12 +36,12 @@ There is no pip installation or dependency hell at all, so that it is easy to us
 #### If you are using a Mac :apple:
 1. Follow the gif tutorial above
 2. Search for **Terminal** and open it
-3. In the **Terminal** type `python` then drag `auto-zoom.py` to the **Terminal**. You should have something like `python /Users/owl-dy/autozoom/auto-zoom.py`
+3. In the **Terminal** type `python3`, then space, then drag `auto-zoom.py` to the **Terminal**. You should have something like `python3 /Users/owl-dy/autozoom/auto-zoom.py`
 4. Confirm the meetings are processed and wait to auto-join the meetings, or close window to terminate the process
 #### If you are using a PC :computer:
 1. You can follow the gif tutorial above except
 2. In **Start** menu search of `cmd` and open it
-3. In the **CMD** type `python` then drag `auto-zoom.py` to the **CMD**. You should have something like `python \Users\owl-dy\downloads\autozoom\auto-zoom.py`
+3. In the **CMD** type `python3`, then space, then drag `auto-zoom.py` to the **CMD**. You should have something like `python3 \Users\owl-dy\downloads\autozoom\auto-zoom.py`
 4. Confirm the meetings are processed and wait to auto-join the meetings, or close window to terminate the process
 
 
