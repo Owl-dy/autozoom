@@ -110,6 +110,8 @@ with open(csv_path) as csv_file:
 
 	print(f'Processed {line_count - 1} meetings.')
 
+#sorting meeting list
+meeting_list = sorted(meeting_list, key = lambda x : x.start_time)
 start_time = time.time()
 loop_count = 0
 
