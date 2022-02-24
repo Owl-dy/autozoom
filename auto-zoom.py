@@ -8,8 +8,8 @@ def decode_link(link):
 	try:
 		password = link.split('pwd=')[1]
 	except:
-		password = input(
-			f"The password of {link} can not be detected. \nInput the password manually or press enter. \n")
+		print("password omitted")
+		password = None
 
 	try:
 		conference_code = link.split('/j/')[1].split('?pwd=')[0]
@@ -79,8 +79,10 @@ class Meeting():
 			else:
 				command = f'start zoommtg://{self.zoom_domain_name}/join?confno={self.conference_code}?"&"pwd={self.password}'
 		else:
-			if self.conference_code == "NOT FOUND":
+			if self.conference_code == "NOT FOUND" :
 				command = f'open {self.link}'  # using the original link to join
+			elif self.password is None:
+				command = f'open "zoommtg://{self.zoom_domain_name}/join?confno={self.conference_code}"'
 			else:
 				command = f'open "zoommtg://{self.zoom_domain_name}/join?confno={self.conference_code}?&pwd={self.password}"'
 		os.system(command)
