@@ -1,2 +1,3 @@
-﻿zoom-links,"date (in mm/dd/y format, leave it blank for today)","meeting start time (in military xx:xx format, the earliest on top and in order pls)","meeting end time (in military xx:xx format, the earliest on top and in order pls)"
-https://zoom.us/j/<conference_code>?pwd=<password>,,15:45,16:30
+﻿Meeting Name,zoom-links,"date (in mm/dd/y format, leave it blank for today)",meeting start time (in military xx:xx format),meeting end time (in military xx:xx forma)
+sample, https://us.zoom.us/j/92200496142?pwd=Z2JUa01IWS9MNkNEQW1WUkt0OG51Zz09,Tuesday,7:15,12:16
+sample2, https://us.zoom.us/j/92208406142?pwd=Z2JUa01IWS9MNkNEQW1WUkt0OG51Zz09,10/30/21,13:15,17:16
