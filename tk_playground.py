@@ -1,7 +1,7 @@
-from hmac import new
 from tkinter import *
 from tkinter import ttk
 import os, csv
+from utils import *
 
 ws=Tk()
 
@@ -78,19 +78,11 @@ def input_record():
 
     for e in entry_list:
         e.delete(0,END)
-    
-    # write to csv
-    global csv_path
-    with open(csv_path, 'a', newline='') as file:
-        writer_object = csv.writer(file)
-        writer_object.writerow(new_entry)  
-        file.close()
    
 #Insert New Meeting button
 Input_button = Button(ws,text = "Insert New Meeting",command= input_record)
 Input_button.pack()
 
-# TODO: Edit Selected column button
 #Select Record
 def select_record():
     #clear entry boxes
@@ -104,14 +96,16 @@ def select_record():
     #grab record values
     values = set.item(selected,'values')
 
+    # change button command to confirm changes
+    select_button.configure(text = "Confirm Changes", command=update_record) #once select, change the button command to update_record
+
     #output to entry boxes
     for i, e in enumerate(entry_list):
         e.insert(0,values[i])
-select_button = Button(ws,text="Select Highlighted Record", command=select_record)
-select_button.pack()
 
 def update_record():
     selected=set.focus()
+
     #save new data 
     global entry_list
     set.item(selected,text="",values=[e.get() for e in entry_list])
@@ -119,13 +113,50 @@ def update_record():
    #clear entry boxes
     for e in entry_list:
         e.delete(0,END)
-edit_button = Button(ws,text="Update",command=update_record)
-edit_button.pack()
+    
+    # change button command to select record
+    select_button.configure(text = "Edit Highlighted Record", command=select_record) #once update, change the button command to select_record
+
+select_button = Button(ws,text="Edit Highlighted Record", command=select_record)
+select_button.pack()
 
 # TODO: Run autozoom button
+def parse_all_meetings():
+    """ 
+    iterate the treeview to get all meetings and create a list of Meeting Object which will be used for autozoom
+    :return: List(Meeting Object)
+    """
+    meeting_list = []
+    global ws
+    for child in set.get_children():
+        row = set.item(child)["values"]
+        meeting = Meeting(row[0],row[1], row[2], row[3], row[4], gui_window=ws)
+        meeting_list.append(meeting)
+    
+    return meeting_list
+
+run_button = Button(ws,text="Run AutoZoom!!", command=parse_all_meetings)
+run_button.pack()
+
+# Step 2.5: write a function to save treeview to csv / display all from csv (switch back and forward), user can use this function with a button or activate this function when parsing is conpleted
+# def save_all_to_csv():
+#     # write to csv
+#     global csv_path
+#     with open(csv_path, 'w', newline='') as file:
+#         writer_object = csv.writer(file)
+#         for child in set.get_children():
+#             row = set.item(child)["values"]
+#             entry = [row[0],row[1], row[2], row[3], row[4]]
+#             writer_object.writerow(entry)  
+#         file.close()
+
+# Step 3: start running the autozoom
+
+# TODO: delete all button
 
 # TODO: visuals for when running autozoom
 
-
+# for child in set.get_children():
+#     print(set.item(child)["values"])
 
 ws.mainloop()
